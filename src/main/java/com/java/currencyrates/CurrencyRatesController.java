@@ -1,7 +1,6 @@
 package com.java.currencyrates;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,16 +13,16 @@ public class CurrencyRatesController {
   private CurrencyRatesService currencyRatesService;
 
   @GetMapping(value = "/allCurrencyRates")
-  public Map<String, String> getAllCurrencyRates() {
+  public List<CurrencyRateEntity> getAllCurrencyRates() {
     return currencyRatesService.getAllCurrencyRates();
   }
 
   @GetMapping(value = "/currency/{optionalCurrency}")
-  public Map<String, String> getCurrencyRateByCurrency(@PathVariable Optional<String> optionalCurrency) {
+  public CurrencyRateEntity getCurrencyRateByCurrency(@PathVariable Optional<String> optionalCurrency) {
     if (optionalCurrency.isPresent()) {
       return currencyRatesService.getCurrencyRateByCurrency(optionalCurrency.get());
     }
-    return new HashMap<>();
+    return new CurrencyRateEntity();
   }
 }
 
